@@ -1,27 +1,36 @@
 # github_dashboard
 
+This is a Flask app that can be launch locally by invoking:
+python main.py
+
+Required dependencies: flask, pandas
+
+Please set up environment variables to row it locally: PILLAR_USER, PILLAR_TOKEN
+
+Local endpoints for the app:
+
 Main Table:
 
-http://127.0.0.1:5000/showrepos/{org}/Name
+/showrepos/{org}/Name
 
 Ex: http://127.0.0.1:5000/showrepos/facebook/Name
 
 
 Order By Forks/Star/Contributors:
 
-http://127.0.0.1:5000/showrepos/{org}/forks
+/showrepos/{org}/forks
 
-http://127.0.0.1:5000/showrepos/{org}/stars
+/showrepos/{org}/stars
 
-http://127.0.0.1:5000/showrepos/{org}/contributors
+/showrepos/{org}/contributors
 
 Ex: http://127.0.0.1:5000/showrepos/facebook/forks
 
 
 Top contribution by group (internal/external):
 
-http://127.0.0.1:5000/topcontrib/{org}
+/topcontrib/{org}
 
-http://127.0.0.1:5000/topcontrib/libra
+Ex: http://127.0.0.1:5000/topcontrib/libra
 
-http://127.0.0.1:5000/topcontrib/facebook (might hit API rate limit)
+Ex: http://127.0.0.1:5000/topcontrib/facebook (might hit API rate limit)
