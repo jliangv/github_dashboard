@@ -1,3 +1,6 @@
+# Name: John Liang
+# Date: 2019/06/22
+
 import requests
 import collections
 import pandas as pd
@@ -69,8 +72,8 @@ def show_top_contrib(org):
             data = r.json()
     
             # to get user repos https://api.github.com/users/{user}/repos
-            # need to request the api asynchrnonously if possible
-            # but 5000 rate limit is not quite enough for many request
+            # TODO - need to request the api in parallel if possible
+            # but 5000 rate limit is not quite enough for that many request
             for contributor in data:
                 organizations_url = contributor["organizations_url"]
                 r = requests.get(organizations_url, auth=(user, token))
@@ -81,7 +84,8 @@ def show_top_contrib(org):
                     is_internal = is_internals[contributor_login]
                 else:                
                     is_internal = any(org_data.get("login")==org for org_data in orgs_data)
-                    print("Checking is_internal for {}, got:{}".format(contributor_login, is_internal))
+                    #print("Checking is_internal for {}, got:{}".format(contributor_login, is_internal))
+                    #TODO - optimize this bottleneck
     
                 if is_internal:
                     in_contributors[contributor_login] = contributions
@@ -154,6 +158,7 @@ def show_repos(org, by):
             for x in data]
     df = pd.DataFrame(data, columns= ['Name', 'Forks', 'Stars', 'Contributors'])
     if by:
+        by = by.title()
         df.sort_values(by=[by, 'Name'], inplace=True, ascending=False)
     return render_template('home.html', 
             page_title='Repos for ' + org,
